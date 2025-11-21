@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complexity Dashboard - Interactive Demo | Scalar Impossibility Theorem</title>
+    <title>Vector Complexity Interactive Demo | Scalar Impossibility Theorem</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Interactive dashboard proving you can't average multi-dimensional complexity into single metrics. Demonstrates DORA metrics, SPACE framework, and the mathematical impossibility theorem.">
+    <meta name="keywords" content="complexity measurement, DORA metrics, SPACE framework, scalar impossibility, multi-dimensional metrics, system health, DevOps metrics, interactive visualization, Plotly.js, data science">
+    <meta name="author" content="Oksana Sudoma">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Vector Complexity Interactive Demo">
+    <meta property="og:description" content="Why you can't average system health: Interactive proof of the scalar impossibility theorem with live visualizations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://boonespacedog.github.io/complexity-dashboard/">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vector Complexity Interactive Demo">
+    <meta name="twitter:description" content="Interactive dashboard showing why single metrics fail to capture multi-dimensional complexity">
+
+    <!-- Preconnect for faster loading -->
+    <link rel="preconnect" href="https://cdn.plot.ly">
 
     <!-- Plotly.js CDN -->
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
@@ -39,28 +58,63 @@
         </div>
 
         <!-- Dashboard Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
 
             <!-- Left Column: Controls -->
-            <div class="space-y-6">
+            <div class="space-y-4 md:space-y-6">
                 <div id="input-panel"></div>
                 <div id="vector-display"></div>
             </div>
 
-            <!-- Center Column: Visualizations -->
-            <div class="lg:col-span-2 space-y-6">
-                <div id="radar-chart" class="bg-white rounded-lg shadow-md p-6"></div>
-                <div id="time-series" class="bg-white rounded-lg shadow-md p-6"></div>
+            <!-- Right Column: Visualizations -->
+            <div class="md:col-span-1 lg:col-span-2 space-y-4 md:space-y-6">
+                <div id="radar-chart" class="bg-white rounded-lg shadow-md p-4 min-h-[400px]"></div>
+
+                <!-- Pre-loaded Scenarios -->
+                <div id="scenarios-section" class="bg-white rounded-lg shadow-md p-4"></div>
+
+                <div id="time-series" class="bg-white rounded-lg shadow-md p-4 min-h-[350px]"></div>
             </div>
 
         </div>
 
         <!-- Cycle Animator (Full Width) -->
-        <div class="mt-6">
+        <div class="mt-4 md:mt-6">
             <div id="cycle-animator"></div>
         </div>
 
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10 px-6 mt-16">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="mb-2">© 2025 Oksana Sudoma</p>
+            <p class="mb-4 text-gray-400 text-sm">
+                Code: <a href="https://github.com/boonespacedog/complexity-dashboard/blob/main/LICENSE" target="_blank" class="text-teal-400 hover:text-teal-300">MIT License</a> |
+                Paper: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" class="text-teal-400 hover:text-teal-300">CC BY 4.0</a>
+            </p>
+            <div class="flex justify-center gap-6 mb-4">
+                <a href="https://github.com/boonespacedog" target="_blank" class="text-white hover:text-teal-400 transition">
+                    <i class="fab fa-github text-xl"></i> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/oksanasudoma/" target="_blank" class="text-white hover:text-teal-400 transition">
+                    <i class="fab fa-linkedin text-xl"></i> LinkedIn
+                </a>
+                <a href="https://oksana-sudoma.sudomaconsulting.com" target="_blank" class="text-white hover:text-teal-400 transition">
+                    <i class="fas fa-globe text-xl"></i> Portfolio
+                </a>
+            </div>
+            <p class="text-gray-500 text-sm">
+                Interactive tool for "Scalar Impossibility in Multi-Pillar Complexity Measures"
+            </p>
+            <p class="text-gray-500 text-xs mt-2">
+                DOI: <a href="https://doi.org/10.5281/zenodo.17562623" target="_blank" class="text-teal-400 hover:text-teal-300">10.5281/zenodo.17562623</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Font Awesome for footer icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Initialize Dashboard -->
     <script type="module">
@@ -80,6 +134,75 @@
 
                 // Load initial scenario
                 dashboard.loadScenario('software-optimization');
+
+                // Add scenarios section
+                const scenariosSection = document.getElementById('scenarios-section');
+                if (scenariosSection) {
+                    scenariosSection.innerHTML = `
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">Pre-loaded Scenarios</h3>
+                        <p class="text-sm text-gray-600 mb-4">Click a scenario to load it</p>
+
+                        <div id="scenario-indicator" class="mb-4 px-4 py-3 bg-teal-50 border-l-4 border-teal-500 rounded-lg hidden">
+                            <div class="text-xs font-medium text-teal-600 uppercase">Currently Loaded</div>
+                            <div id="scenario-name" class="text-base font-semibold text-teal-900 mt-1"></div>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-3">
+                            <button class="scenario-card p-3 border-2 border-gray-200 rounded-lg hover:border-teal-500 hover:shadow-md transition-all text-left" data-scenario="software-optimization" data-vector="[0.85,0.3,0.4,0.2]">
+                                <h4 class="font-semibold text-teal-700 text-sm mb-1">Software Optimization</h4>
+                                <p class="text-xs text-gray-600">Algorithm improvements hidden by architecture trade-offs</p>
+                                <div class="text-xs font-mono text-gray-500 mt-2">Alg: 0.85 | Info: 0.30 | Dyn: 0.40 | Geom: 0.20</div>
+                            </button>
+                            <button class="scenario-card p-3 border-2 border-gray-200 rounded-lg hover:border-teal-500 hover:shadow-md transition-all text-left" data-scenario="research-project" data-vector="[0.4,0.9,0.6,0.3]">
+                                <h4 class="font-semibold text-teal-700 text-sm mb-1">Research Project</h4>
+                                <p class="text-xs text-gray-600">Collaboration benefits masked by coordination complexity</p>
+                                <div class="text-xs font-mono text-gray-500 mt-2">Alg: 0.40 | Info: 0.90 | Dyn: 0.60 | Geom: 0.30</div>
+                            </button>
+                            <button class="scenario-card p-3 border-2 border-gray-200 rounded-lg hover:border-teal-500 hover:shadow-md transition-all text-left" data-scenario="neural-network" data-vector="[0.6,0.5,0.85,0.7]">
+                                <h4 class="font-semibold text-teal-700 text-sm mb-1">Neural Network</h4>
+                                <p class="text-xs text-gray-600">Training stability vs. model capacity trade-offs</p>
+                                <div class="text-xs font-mono text-gray-500 mt-2">Alg: 0.60 | Info: 0.50 | Dyn: 0.85 | Geom: 0.70</div>
+                            </button>
+                        </div>
+                    `;
+
+                    // Add scenario click handlers
+                    const scenarioCards = scenariosSection.querySelectorAll('.scenario-card');
+                    const scenarioIndicator = document.getElementById('scenario-indicator');
+                    const scenarioNameEl = document.getElementById('scenario-name');
+
+                    scenarioCards.forEach(card => {
+                        card.addEventListener('click', () => {
+                            const vector = JSON.parse(card.dataset.vector);
+                            const scenarioName = card.querySelector('h4').textContent;
+
+                            dashboard.state.currentScenario = scenarioName;
+                            dashboard.state.updateVector(vector, `Load: ${scenarioName}`);
+
+                            // Update indicator
+                            if (scenarioIndicator && scenarioNameEl) {
+                                scenarioNameEl.textContent = scenarioName;
+                                scenarioIndicator.classList.remove('hidden');
+                            }
+
+                            // Visual feedback
+                            scenarioCards.forEach(c => c.classList.remove('border-teal-500', 'shadow-md'));
+                            card.classList.add('border-teal-500', 'shadow-md');
+                        });
+                    });
+
+                    // Subscribe to state changes to hide indicator when cleared
+                    dashboard.state.subscribe(() => {
+                        if (scenarioIndicator && scenarioNameEl) {
+                            if (dashboard.state.currentScenario) {
+                                scenarioNameEl.textContent = dashboard.state.currentScenario;
+                                scenarioIndicator.classList.remove('hidden');
+                            } else {
+                                scenarioIndicator.classList.add('hidden');
+                            }
+                        }
+                    });
+                }
 
                 // Make dashboard globally accessible for debugging
                 window.dashboard = dashboard;
