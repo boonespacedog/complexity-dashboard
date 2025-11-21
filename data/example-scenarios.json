@@ -1,0 +1,102 @@
+{
+  "scenarios": [
+    {
+      "name": "software-optimization",
+      "displayName": "Software System Optimization",
+      "description": "Optimize a software system across multiple dimensions",
+      "initial": [0.3, 0.4, 0.2, 0.5],
+      "operations": [
+        {
+          "pillar": "alg",
+          "delta": 0.4,
+          "description": "Implement efficient algorithms"
+        },
+        {
+          "pillar": "info",
+          "delta": 0.3,
+          "description": "Add comprehensive monitoring"
+        },
+        {
+          "pillar": "dyn",
+          "delta": 0.5,
+          "description": "Parallelize critical paths"
+        },
+        {
+          "pillar": "geom",
+          "delta": -0.2,
+          "description": "Simplify architecture"
+        }
+      ]
+    },
+    {
+      "name": "research-project",
+      "displayName": "Research Project Management",
+      "description": "Balance competing priorities in research",
+      "initial": [0.6, 0.3, 0.4, 0.2],
+      "operations": [
+        {
+          "pillar": "info",
+          "delta": 0.5,
+          "description": "Add collaborators"
+        },
+        {
+          "pillar": "geom",
+          "delta": 0.2,
+          "description": "Structure project phases"
+        }
+      ]
+    },
+    {
+      "name": "neural-network",
+      "displayName": "Neural Network Architecture",
+      "description": "Design trade-offs in deep learning",
+      "initial": [0.7, 0.5, 0.8, 0.6],
+      "operations": [
+        {
+          "pillar": "alg",
+          "delta": -0.2,
+          "description": "Simplify architecture"
+        },
+        {
+          "pillar": "info",
+          "delta": 0.3,
+          "description": "Add attention mechanisms"
+        },
+        {
+          "pillar": "dyn",
+          "delta": -0.3,
+          "description": "Reduce depth"
+        }
+      ]
+    },
+    {
+      "name": "impossibility-cycle",
+      "displayName": "5-Step Impossibility Cycle",
+      "description": "Mathematical proof of scalar impossibility",
+      "initial": [0.1, 0.1, 0.1, 0.1],
+      "operations": [
+        {
+          "pillar": "alg",
+          "delta": 0.2,
+          "description": "Step 1: Improve algorithms"
+        },
+        {
+          "pillar": "info",
+          "delta": 0.2,
+          "description": "Step 2: Increase information"
+        },
+        {
+          "pillar": "dyn",
+          "delta": 0.15,
+          "description": "Step 3: Enhance dynamics"
+        },
+        {
+          "pillar": "geom",
+          "delta": 0.3,
+          "description": "Step 4: Enrich topology"
+        }
+      ],
+      "autoPlay": true
+    }
+  ]
+}

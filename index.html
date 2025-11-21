@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complexity Dashboard - Interactive Demo | Scalar Impossibility Theorem</title>
+
+    <!-- Plotly.js CDN -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/dashboard.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-4xl font-bold text-teal-700 mb-2">
+                Complexity Dashboard
+            </h1>
+            <p class="text-xl text-gray-600">
+                Interactive demonstration of the Scalar Impossibility Theorem
+            </p>
+        </header>
+
+        <!-- Instructions -->
+        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8">
+            <h2 class="text-lg font-semibold text-blue-900 mb-2">How to Use</h2>
+            <p class="text-blue-800">
+                Adjust the sliders to explore how different complexity dimensions interact.
+                Notice how the scalar average (yellow dashed line) fails to capture important
+                changes in individual dimensions.
+            </p>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Left Column: Controls -->
+            <div class="space-y-6">
+                <div id="input-panel"></div>
+                <div id="vector-display"></div>
+            </div>
+
+            <!-- Center Column: Visualizations -->
+            <div class="lg:col-span-2 space-y-6">
+                <div id="radar-chart" class="bg-white rounded-lg shadow-md p-6"></div>
+                <div id="time-series" class="bg-white rounded-lg shadow-md p-6"></div>
+            </div>
+
+        </div>
+
+        <!-- Cycle Animator (Full Width) -->
+        <div class="mt-6">
+            <div id="cycle-animator"></div>
+        </div>
+
+    </div>
+
+    <!-- Initialize Dashboard -->
+    <script type="module">
+        import { ComplexityDashboard } from './js/dashboard-main.js';
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                // Initialize dashboard
+                const dashboard = new ComplexityDashboard({
+                    inputPanel: 'input-panel',
+                    vectorDisplay: 'vector-display',
+                    radarChart: 'radar-chart',
+                    cycleAnimator: 'cycle-animator',
+                    timeSeries: 'time-series'
+                });
+
+                // Load initial scenario
+                dashboard.loadScenario('software-optimization');
+
+                // Make dashboard globally accessible for debugging
+                window.dashboard = dashboard;
+
+                console.log('Dashboard initialized successfully!');
+            } catch (error) {
+                console.error('Failed to initialize dashboard:', error);
+                document.body.innerHTML = `
+                    <div class="max-w-2xl mx-auto mt-20 p-8 bg-red-50 border border-red-200 rounded-lg">
+                        <h2 class="text-2xl font-bold text-red-800 mb-4">Error Loading Dashboard</h2>
+                        <p class="text-red-700">
+                            The dashboard failed to initialize. Please check the browser console for details.
+                        </p>
+                        <pre class="mt-4 p-4 bg-red-100 rounded text-sm overflow-auto">${error.message}</pre>
+                    </div>
+                `;
+            }
+        });
+    </script>
+
+</body>
+</html>
